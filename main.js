@@ -88,7 +88,7 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
   const campos = [
     ['nombre', 'Nombre y apellido'],
     ['marca', 'Marca'],
-    ['correo', 'Correo'],
+    ['email', 'Correo'],
     ['whatsapp', 'WhatsApp'],
     ['servicio', '¿Qué te interesa?'],
     ['perfil', '¿Con cuál te identificas?'],
@@ -112,7 +112,7 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
 
       const el = f.elements.namedItem(nombre);
       const valor = typeof d[nombre] === 'string' ? d[nombre].trim() : '';
-      const malo = !valor || (nombre === 'correo' && !el.validity.valid);
+      const malo = !valor || (nombre === 'email' && !el.validity.valid);
       el.setAttribute('aria-invalid', malo ? 'true' : 'false');
       if (malo) faltan.push(etiqueta);
     });
@@ -132,10 +132,10 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
 
     const datos = {
       _subject: `Nueva solicitud web · ${d.marca.trim()}`,
-      _replyto: d.correo.trim(),
+      _replyto: d.email.trim(),
       'Nombre y apellido': d.nombre.trim(),
       Marca: d.marca.trim(),
-      Correo: d.correo.trim(),
+      email: d.email.trim(),
       WhatsApp: d.whatsapp.trim(),
       '¿Qué te interesa?': d.servicio,
       '¿Con cuál te identificas?': d.perfil,
@@ -153,17 +153,23 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
         },
         body: JSON.stringify(datos),
       });
-      const resultado = await respuesta.json();
+      let resultado;
+      try {
+        resultado = await respuesta.json();
+      } catch {
+        throw new Error(`El servicio respondió en un formato inesperado (${respuesta.status}).`);
+      }
 
       if (!respuesta.ok || String(resultado.success).toLowerCase() !== 'true') {
-        throw new Error(resultado.message || 'El servicio de correo rechazó la solicitud.');
+        throw new Error(resultado.message || `El servicio rechazó la solicitud (${respuesta.status}).`);
       }
 
       ok.hidden = false;
       ok.focus();
     } catch (e) {
       console.error('No se pudo enviar la solicitud del formulario.', e);
-      error.textContent = `No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos a ${CONFIG.correo}.`;
+      const detalle = e instanceof Error ? e.message : 'Error desconocido';
+      error.textContent = `No pudimos enviar tu solicitud (${detalle}). Comprueba que el correo destinatario esté activado en FormSubmit o escríbenos a ${CONFIG.correo}.`;
       error.focus();
     } finally {
       boton.disabled = false;

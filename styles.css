@@ -228,6 +228,7 @@ em { font-style: normal; color: var(--rosa); }
   .filtros__fondo::after { background: linear-gradient(180deg, rgba(10,10,10,.9), rgba(10,10,10,.7) 50%, rgba(10,10,10,.92)); }
   .hero { min-height: calc(100svh - 100px); gap: clamp(20px, 4svh, 36px); padding-block: clamp(24px, 4svh, 48px); }
   .hero__rebano { width: min(100%, 46svh); }
+  .hero__nota { display: none; }
   .rebano img:nth-child(n+16) { display: none; }
 }
 @media (max-width: 560px) {
@@ -283,7 +284,6 @@ em { font-style: normal; color: var(--rosa); }
   .rebano img:nth-child(n+11) { display: none; }
   .sticker--1 { left: -6px; } .sticker--2 { right: -4px; }
   .sticker { font-size: 11px; padding: 8px 10px; }
-  .hero__nota { top: -46px; right: 6%; }
   .bloque { padding-top: 64px; padding-bottom: 64px; }
   .cabeza { margin-bottom: 30px; }
   .titulo { font-size: clamp(32px, 10vw, 44px); }
