@@ -99,15 +99,6 @@
         <h3 class="servicio__titulo">Gestión de comunicaciones.</h3>
         <p class="cuerpo">Somos tu equipo de comunicación y redes sociales: todo lo que tu marca dice, con un mismo norte, ideas propias y resultados que se pueden medir.</p>
         <ul class="chips chips--negro"><li>Redes sociales</li><li>Menú</li><li>Comunicados</li><li>Influencers</li><li>Y más</li></ul>
-        <div class="mes">
-          <p class="mono mes__titulo">Cada mes</p>
-          <div class="mes__grid">
-            <div><strong>+20</strong><span>contenidos</span></div>
-            <div><strong>2</strong><span>grabaciones</span></div>
-            <div><strong>Ads</strong><span>pauta en Meta</span></div>
-          </div>
-          <p class="mes__extra">Dirección creativa enfocada en redes y gestión diaria de publicaciones.</p>
-        </div>
         <a href="#agenda" class="boton boton--negro" data-servicio="Gestión de comunicaciones">Quiero gestión de comunicaciones <span class="flecha">→</span></a>
       </div>
     </article>
@@ -190,16 +181,11 @@
 
 <!-- LA CASA -->
 <section class="bloque casa reticula" id="casa">
-  <figure class="casa__foto revela">
-    <img src="assets/img/daniel.webp" alt="Daniel Chacón, fundador y director de Casa Miranda" loading="lazy">
-    <figcaption><strong>Daniel Chacón</strong><span class="mono">Fundador y director</span></figcaption>
-  </figure>
   <div class="casa__texto revela">
     <p class="etiqueta">(07) La casa</p>
     <h2 class="titulo">Somos una agencia de <em>dirección creativa y comunicación.</em></h2>
-    <p class="cuerpo cuerpo--grande">Daniel Chacón, nuestro fundador y director, constituye un equipo de mentes creativas y estrategas para cubrir un vacío enorme: marcas que no logran transmitir su valor.</p>
+    <p class="cuerpo cuerpo--grande">Una casa dónde la creatividad y la estrategia se construyen bajo el mismo techo para lograr diferenciar las marcas potenciando aquello que las hace realmente valiosas</p>
     <p class="cuerpo">Desde 2014 trabaja con marcas en Venezuela y el extranjero, como independiente y con agencias. Esa experiencia es hoy el método de toda la casa.</p>
-    <p class="mano casa__firma">El nombre viene de Francisco de Miranda: un visionario con los pies en la tierra.</p>
   </div>
 </section>
 
@@ -225,28 +211,28 @@
       <legend>¿Qué te interesa? *</legend>
       <div class="opciones">
         <label><input type="radio" name="servicio" value="Dirección creativa" required><span>Dirección creativa</span></label>
-        <label><input type="radio" name="servicio" value="Gestión de comunicaciones"><span>Gestión de comunicaciones</span></label>
-        <label><input type="radio" name="servicio" value="Todavía no lo sé"><span>Todavía no lo sé</span></label>
+        <label><input type="radio" name="servicio" value="Gestión de comunicaciones" required><span>Gestión de comunicaciones</span></label>
+        <label><input type="radio" name="servicio" value="Todavía no lo sé" required><span>Todavía no lo sé</span></label>
       </div>
     </fieldset>
-    <div class="campo"><label for="f-perfil">¿Con cuál te identificas?</label>
-      <select id="f-perfil" name="perfil">
-        <option value="">Elige una opción</option>
+    <div class="campo"><label for="f-perfil">¿Con cuál te identificas? *</label>
+      <select id="f-perfil" name="perfil" required>
+        <option value="" disabled selected>Elige una opción</option>
         <option>Mi marca tiene años de historia y no quiero quedarme dormido.</option>
         <option>Estoy cansado de propuestas de relleno y exijo ideas con buen acabado.</option>
         <option>Mi producto ya funciona, pero el marketing todavía depende de mí.</option>
         <option>Mi marca es parte de mi vida y quiero un equipo que la sienta igual.</option>
       </select></div>
-    <div class="campo campo--mitad"><label for="f-fecha">Fecha preferida</label><input id="f-fecha" name="fecha" type="date"></div>
-    <div class="campo campo--mitad"><label for="f-hora">Horario</label>
-      <select id="f-hora" name="hora"><option value="">Cualquiera</option><option>Mañana</option><option>Tarde</option></select></div>
-    <div class="campo"><label for="f-mensaje">¿Qué necesita tu marca?</label><textarea id="f-mensaje" name="mensaje" rows="4" placeholder="Cuéntanos en pocas líneas."></textarea></div>
-    <p class="formulario__error" id="f-error" role="alert"></p>
+    <div class="campo campo--mitad"><label for="f-fecha">Fecha preferida *</label><input id="f-fecha" name="fecha" type="date" required></div>
+    <div class="campo campo--mitad"><label for="f-hora">Horario *</label>
+      <select id="f-hora" name="hora" required><option value="" disabled selected>Elige un horario</option><option>Cualquiera</option><option>Mañana</option><option>Tarde</option></select></div>
+    <div class="campo"><label for="f-mensaje">¿Qué necesita tu marca? *</label><textarea id="f-mensaje" name="mensaje" rows="4" placeholder="Cuéntanos en pocas líneas." required></textarea></div>
+    <p class="formulario__error" id="f-error" role="alert" tabindex="-1"></p>
     <button type="submit" class="boton boton--rosa boton--ancho">Enviar y agendar <span class="flecha">→</span></button>
-    <p class="formulario__nota">Al enviar se abre WhatsApp con tus datos listos. ¿Prefieres correo? <a href="#" data-correo>Escríbenos aquí</a>.</p>
-    <div class="formulario__ok" id="f-ok" hidden>
-      <p class="titulo titulo--chico">Listo.</p>
-      <p>Se abrió WhatsApp con tu solicitud. Si no se abrió, <a href="#" id="f-reabrir">toca aquí</a>. Te respondemos para fijar la reunión.</p>
+    <p class="formulario__nota">Tu solicitud llegará al correo de Casa Miranda. ¿Tienes problemas? <a href="#" data-correo>Escríbenos aquí</a>.</p>
+    <div class="formulario__ok" id="f-ok" role="status" aria-live="polite" tabindex="-1" hidden>
+      <p class="titulo titulo--chico">Solicitud enviada.</p>
+      <p>Recibimos tus datos y nos pondremos en contacto contigo para coordinar la reunión.</p>
     </div>
   </form>
 </section>

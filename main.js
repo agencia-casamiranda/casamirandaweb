@@ -2,6 +2,7 @@
 const CONFIG = {
   whatsapp: '584129536542', // solo números, con código de país
   correo: 'agenciacasamiranda@gmail.com',
+  formulario: 'https://formsubmit.co/ajax/agenciacasamiranda@gmail.com',
   redes: { instagram: 'https://www.instagram.com/agenciacasamiranda/' },
 };
 
@@ -78,36 +79,96 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
   if (r) r.checked = true;
 }));
 
-// Formulario: valida y abre WhatsApp con la solicitud lista
+// Formulario: valida todos los campos y envía la solicitud por correo
 (() => {
   const f = document.getElementById('formulario');
   const error = document.getElementById('f-error');
   const ok = document.getElementById('f-ok');
-  let ultimo = '';
-  f.addEventListener('submit', (e) => {
+  const boton = f.querySelector('button[type="submit"]');
+  const campos = [
+    ['nombre', 'Nombre y apellido'],
+    ['marca', 'Marca'],
+    ['correo', 'Correo'],
+    ['whatsapp', 'WhatsApp'],
+    ['servicio', '¿Qué te interesa?'],
+    ['perfil', '¿Con cuál te identificas?'],
+    ['fecha', 'Fecha preferida'],
+    ['hora', 'Horario'],
+    ['mensaje', '¿Qué necesita tu marca?'],
+  ];
+
+  f.addEventListener('submit', async (e) => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(f));
     const faltan = [];
-    ['nombre', 'marca', 'correo', 'whatsapp'].forEach((k) => {
-      const el = f.elements[k];
-      const malo = !d[k] || !d[k].trim() || (k === 'correo' && !/^\S+@\S+\.\S+$/.test(d[k]));
+    campos.forEach(([nombre, etiqueta]) => {
+      if (nombre === 'servicio') {
+        const radios = f.querySelectorAll('input[name="servicio"]');
+        const malo = !d.servicio;
+        radios.forEach((radio) => radio.setAttribute('aria-invalid', malo ? 'true' : 'false'));
+        if (malo) faltan.push(etiqueta);
+        return;
+      }
+
+      const el = f.elements.namedItem(nombre);
+      const valor = typeof d[nombre] === 'string' ? d[nombre].trim() : '';
+      const malo = !valor || (nombre === 'correo' && !el.validity.valid);
       el.setAttribute('aria-invalid', malo ? 'true' : 'false');
-      if (malo) faltan.push(el.previousElementSibling.textContent.replace(' *', ''));
+      if (malo) faltan.push(etiqueta);
     });
-    if (!d.servicio) faltan.push('Qué te interesa');
-    if (faltan.length) { error.textContent = `Completa: ${faltan.join(', ')}.`; return; }
+
+    if (faltan.length) {
+      error.textContent = `Completa todos los campos obligatorios antes de enviar: ${faltan.join(', ')}.`;
+      error.focus();
+      return;
+    }
+
     error.textContent = '';
-    const lineas = [
-      'Hola, Casa Miranda. Quiero agendar una reunión.',
-      `Nombre: ${d.nombre}`, `Marca: ${d.marca}`, `Correo: ${d.correo}`, `WhatsApp: ${d.whatsapp}`,
-      `Me interesa: ${d.servicio}`,
-      d.perfil && `Me identifico con: ${d.perfil}`,
-      (d.fecha || d.hora) && `Preferencia: ${[d.fecha && d.fecha.split('-').reverse().join('/'), d.hora].filter(Boolean).join(' · ')}`,
-      d.mensaje && `Lo que necesita mi marca: ${d.mensaje}`,
-    ].filter(Boolean);
-    ultimo = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(lineas.join('\n'))}`;
-    window.open(ultimo, '_blank', 'noopener');
-    ok.hidden = false;
+    ok.hidden = true;
+    boton.disabled = true;
+    boton.setAttribute('aria-busy', 'true');
+    const textoBoton = boton.innerHTML;
+    boton.textContent = 'Enviando...';
+
+    const datos = {
+      _subject: `Nueva solicitud web · ${d.marca.trim()}`,
+      _replyto: d.correo.trim(),
+      'Nombre y apellido': d.nombre.trim(),
+      Marca: d.marca.trim(),
+      Correo: d.correo.trim(),
+      WhatsApp: d.whatsapp.trim(),
+      '¿Qué te interesa?': d.servicio,
+      '¿Con cuál te identificas?': d.perfil,
+      'Fecha preferida': d.fecha,
+      Horario: d.hora,
+      '¿Qué necesita tu marca?': d.mensaje.trim(),
+    };
+
+    try {
+      const respuesta = await fetch(CONFIG.formulario, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(datos),
+      });
+      const resultado = await respuesta.json();
+
+      if (!respuesta.ok || String(resultado.success).toLowerCase() !== 'true') {
+        throw new Error(resultado.message || 'El servicio de correo rechazó la solicitud.');
+      }
+
+      ok.hidden = false;
+      ok.focus();
+    } catch (e) {
+      console.error('No se pudo enviar la solicitud del formulario.', e);
+      error.textContent = `No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos a ${CONFIG.correo}.`;
+      error.focus();
+    } finally {
+      boton.disabled = false;
+      boton.removeAttribute('aria-busy');
+      boton.innerHTML = textoBoton;
+    }
   });
-  document.getElementById('f-reabrir').addEventListener('click', (e) => { e.preventDefault(); if (ultimo) window.open(ultimo, '_blank', 'noopener'); });
 })();
