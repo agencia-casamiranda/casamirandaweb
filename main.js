@@ -2,7 +2,8 @@
 const CONFIG = {
   whatsapp: '584129536542', // solo números, con código de país
   correo: 'agenciacasamiranda@gmail.com',
-  formulario: 'https://formsubmit.co/ajax/agenciacasamiranda@gmail.com',
+  formulario: 'https://api.web3forms.com/submit',
+  accessKey: 'cf5e9e8f-acd9-4296-8668-035a6a279b0f',
   redes: { instagram: 'https://www.instagram.com/agenciacasamiranda/' },
 };
 
@@ -131,17 +132,17 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
     boton.textContent = 'Enviando...';
 
     const datos = {
-      _subject: `Nueva solicitud web · ${d.marca.trim()}`,
-      _replyto: d.email.trim(),
-      'Nombre y apellido': d.nombre.trim(),
-      Marca: d.marca.trim(),
+      access_key: CONFIG.accessKey,
+      subject: 'Nueva solicitud desde Casa Miranda Web',
+      nombre: d.nombre.trim(),
+      marca: d.marca.trim(),
       email: d.email.trim(),
-      WhatsApp: d.whatsapp.trim(),
-      '¿Qué te interesa?': d.servicio,
-      '¿Con cuál te identificas?': d.perfil,
-      'Fecha preferida': d.fecha,
-      Horario: d.hora,
-      '¿Qué necesita tu marca?': d.mensaje.trim(),
+      whatsapp: d.whatsapp.trim(),
+      servicio: d.servicio,
+      perfil: d.perfil,
+      fecha: d.fecha,
+      hora: d.hora,
+      mensaje: d.mensaje.trim(),
     };
 
     try {
@@ -164,12 +165,14 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
         throw new Error(resultado.message || `El servicio rechazó la solicitud (${respuesta.status}).`);
       }
 
+      f.reset();
+      f.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
       ok.hidden = false;
       ok.focus();
     } catch (e) {
       console.error('No se pudo enviar la solicitud del formulario.', e);
       const detalle = e instanceof Error ? e.message : 'Error desconocido';
-      error.textContent = `No pudimos enviar tu solicitud (${detalle}). Comprueba que el correo destinatario esté activado en FormSubmit o escríbenos a ${CONFIG.correo}.`;
+      error.textContent = `No pudimos enviar tu solicitud (${detalle}). Intenta nuevamente o escríbenos a ${CONFIG.correo}.`;
       error.focus();
     } finally {
       boton.disabled = false;
