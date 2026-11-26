@@ -1,10 +1,7 @@
 // ====== CONFIGURACIÓN — revisar antes de publicar ======
 const CONFIG = {
-  whatsapp: '584129536542', // solo números, con código de país
   correo: 'agenciacasamiranda@gmail.com',
   formulario: 'https://api.web3forms.com/submit',
-  accessKey: 'cf5e9e8f-acd9-4296-8668-035a6a279b0f',
-  redes: { instagram: 'https://www.instagram.com/agenciacasamiranda/' },
 };
 
 const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -70,9 +67,7 @@ const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 })();
 
 // Enlaces de contacto
-document.querySelectorAll('[data-wa]').forEach((a) => { a.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(a.dataset.wa)}`; a.target = '_blank'; a.rel = 'noopener'; });
 document.querySelectorAll('[data-correo]').forEach((a) => { a.href = `mailto:${CONFIG.correo}?subject=${encodeURIComponent('Quiero agendar una reunión con Casa Miranda')}`; });
-document.querySelectorAll('[data-red]').forEach((a) => { const u = CONFIG.redes[a.dataset.red]; if (u) { a.href = u; a.target = '_blank'; a.rel = 'noopener'; } });
 
 // Los botones de cada servicio dejan marcado ese servicio en el formulario
 document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('click', () => {
@@ -87,15 +82,14 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
   const ok = document.getElementById('f-ok');
   const boton = f.querySelector('button[type="submit"]');
   const campos = [
-    ['nombre', 'Nombre y apellido'],
+    ['name', 'Nombre y apellido'],
     ['marca', 'Marca'],
     ['email', 'Correo'],
-    ['whatsapp', 'WhatsApp'],
     ['servicio', '¿Qué te interesa?'],
     ['perfil', '¿Con cuál te identificas?'],
     ['fecha', 'Fecha preferida'],
     ['hora', 'Horario'],
-    ['mensaje', '¿Qué necesita tu marca?'],
+    ['message', '¿Qué necesita tu marca?'],
   ];
 
   f.addEventListener('submit', async (e) => {
@@ -132,17 +126,16 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
     boton.textContent = 'Enviando...';
 
     const datos = {
-      access_key: CONFIG.accessKey,
+      ...d,
       subject: 'Nueva solicitud desde Casa Miranda Web',
-      nombre: d.nombre.trim(),
+      name: d.name.trim(),
       marca: d.marca.trim(),
       email: d.email.trim(),
-      whatsapp: d.whatsapp.trim(),
       servicio: d.servicio,
       perfil: d.perfil,
       fecha: d.fecha,
       hora: d.hora,
-      mensaje: d.mensaje.trim(),
+      message: d.message.trim(),
     };
 
     try {
