@@ -10,7 +10,7 @@ const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 (() => {
   const caja = document.getElementById('rebano');
   if (!caja) return;
-  const rosa = 17;
+  const rosa = 12;
   for (let i = 0; i < 25; i++) {
     const img = document.createElement('img');
     img.src = i === rosa ? 'assets/oveja-rosa.png' : 'assets/oveja-sombra.png';
