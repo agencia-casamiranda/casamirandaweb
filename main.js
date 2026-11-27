@@ -79,7 +79,6 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
 (() => {
   const f = document.getElementById('formulario');
   const error = document.getElementById('f-error');
-  const ok = document.getElementById('f-ok');
   const boton = f.querySelector('button[type="submit"]');
   const campos = [
     ['name', 'Nombre y apellido'],
@@ -119,7 +118,6 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
     }
 
     error.textContent = '';
-    ok.hidden = true;
     boton.disabled = true;
     boton.setAttribute('aria-busy', 'true');
     const textoBoton = boton.innerHTML;
@@ -160,8 +158,7 @@ document.querySelectorAll('[data-servicio]').forEach((b) => b.addEventListener('
 
       f.reset();
       f.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
-      ok.hidden = false;
-      ok.focus();
+      window.location.assign('/gracias.html');
     } catch (e) {
       console.error('No se pudo enviar la solicitud del formulario.', e);
       const detalle = e instanceof Error ? e.message : 'Error desconocido';

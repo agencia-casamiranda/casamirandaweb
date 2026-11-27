@@ -18,9 +18,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PJ54HZ7G"></script>
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '193159798227464');
+fbq('track', 'PageView');
+</script>
 <noscript><style>.revela{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=193159798227464&ev=PageView&noscript=1" alt=""></noscript>
 
 <div class="ticker" aria-hidden="true"><div class="ticker__pista">
   <span>Abrimos agenda para nuevas marcas</span><span>Estrategia y creatividad bajo el mismo techo</span><span>Venezuela y el extranjero</span><span>Fuera del rebaño</span>
@@ -230,10 +249,6 @@
     <p class="formulario__error" id="f-error" role="alert" tabindex="-1"></p>
     <button type="submit" class="boton boton--rosa boton--ancho">Enviar y agendar <span class="flecha">→</span></button>
     <p class="formulario__nota">Tu solicitud llegará al correo de Casa Miranda. ¿Tienes problemas? <a href="#" data-correo>Escríbenos aquí</a>.</p>
-    <div class="formulario__ok" id="f-ok" role="status" aria-live="polite" tabindex="-1" hidden>
-      <p class="titulo titulo--chico">Solicitud enviada.</p>
-      <p>Tus datos se enviaron correctamente. Casa Miranda se pondrá en contacto contigo para coordinar la reunión.</p>
-    </div>
   </form>
 </section>
 

@@ -211,6 +211,20 @@ em { font-style: normal; color: var(--rosa); }
 .visor video { max-height: 88vh; width: auto; max-width: 100%; border-radius: 22px; }
 .visor__cerrar { position: absolute; top: 18px; right: 18px; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--rosa); color: var(--negro); font-size: 18px; cursor: pointer; }
 
+/* Confirmación de solicitud */
+.gracias-pagina { min-height: 100svh; display: flex; flex-direction: column; background-color: var(--papel); background-image: linear-gradient(var(--linea) 1px, transparent 1px), linear-gradient(90deg, var(--linea) 1px, transparent 1px); background-size: 120px 120px; background-position: -1px -1px; }
+.gracias-header { width: 100%; max-width: var(--max); margin: 0 auto; padding: 28px var(--m); }
+.gracias-logo { display: inline-block; }
+.gracias-logo img { width: auto; height: 36px; }
+.gracias-main { flex: 1; display: grid; place-items: center; padding: clamp(24px, 5vh, 60px) var(--m); }
+.gracias-contenido { position: relative; width: min(100%, 900px); padding: clamp(32px, 5vw, 64px); border: 1px solid var(--linea); border-radius: var(--radio); background: rgba(246,244,240,.9); box-shadow: 0 30px 90px -60px rgba(0,0,0,.4); }
+.gracias-etiqueta { margin-bottom: 24px; color: #ff0066; font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.gracias-titulo { max-width: 16ch; font-size: clamp(48px, 6.2vw, 88px); font-weight: 900; font-variation-settings: 'wdth' 112; line-height: .9; letter-spacing: -.045em; text-transform: uppercase; }
+.gracias-titulo em { color: #ff0066; font-style: normal; }
+.gracias-texto { max-width: 53ch; margin-top: 26px; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.5; }
+.gracias-boton { margin-top: 34px; }
+.gracias-oveja { position: absolute; top: 24px; right: clamp(28px, 5vw, 64px); width: 64px; height: auto; }
+
 /* Aparición al hacer scroll */
 .revela { opacity: 0; transform: translateY(36px); transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1); }
 .revela.visto { opacity: 1; transform: none; }
@@ -253,6 +267,15 @@ em { font-style: normal; color: var(--rosa); }
   .caso { scroll-snap-align: start; }
 }
 @media (max-width: 560px) {
+  .gracias-header { padding: 18px 16px; }
+  .gracias-logo img { height: 30px; }
+  .gracias-main { padding: 24px 16px; }
+  .gracias-contenido { padding: 64px 24px 30px; border-radius: 20px; }
+  .gracias-oveja { top: 22px; right: 22px; width: 42px; }
+  .gracias-etiqueta { margin-bottom: 18px; font-size: 11px; }
+  .gracias-titulo { font-size: clamp(42px, 12vw, 60px); }
+  .gracias-texto { margin-top: 20px; font-size: 16px; }
+  .gracias-boton { margin-top: 26px; }
   .nav { padding: 10px 16px 8px; flex-wrap: wrap; gap: 8px 12px; }
   .nav .boton { font-size: 13px; padding: 8px 8px 8px 14px; gap: 6px; }
   .nav__logo img { height: 28px; }
