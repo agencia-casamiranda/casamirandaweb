@@ -25,13 +25,13 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '193159798227464');
+fbq('init', '1110024418749748');
 fbq('track', 'PageView');
 fbq('track', 'Lead');
 </script>
 </head>
 <body class="gracias-pagina">
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=193159798227464&ev=PageView&noscript=1" alt=""></noscript>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1110024418749748&ev=PageView&noscript=1" alt=""></noscript>
 <header class="gracias-header">
   <a href="/" class="gracias-logo" aria-label="Casa Miranda, volver al inicio"><img src="assets/logo-h-negro.png" alt="Casa Miranda"></a>
 </header>
@@ -42,7 +42,11 @@ fbq('track', 'Lead');
     <h1 class="gracias-titulo" id="gracias-titulo">Tu marca ya dio el <em>primer paso.</em></h1>
     <p class="gracias-texto">Gracias por escribirnos. Recibimos tus datos y muy pronto te contactaremos por correo electrónico para coordinar una reunión de 30 minutos por Google Meet.</p>
     <a href="/" class="boton boton--negro gracias-boton">Volver al inicio <span class="flecha">↗</span></a>
+    <p class="gracias-redireccion" role="status">Volverás al inicio automáticamente en unos segundos.</p>
   </section>
 </main>
+<script>
+window.setTimeout(() => { window.location.href = '/'; }, 5000);
+</script>
 </body>
 </html>
